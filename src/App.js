@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import "./scss/style.scss";
+import { api, authToken } from "./views/plugins/api";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -10,21 +11,57 @@ const loading = (
 
 // Containers
 const TheLayout = React.lazy(() => import("./containers/TheLayout"));
-// const LoginUser = React.lazy(() => import("./views/um/loginUser"));
 
 // Pages
 const Login = React.lazy(() => import("./views/pages/login/Login"));
 const Register = React.lazy(() => import("./views/pages/register/Register"));
 const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
 const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
-const LoginUser = React.lazy(() => import("./views/um/loginUser"));
-// { path: "/loginUser", exact: true, name: "Login User", component: LoginUser },
+const InsertVerifCodePage = React.lazy(() =>
+  import("./views/um/insertVerifCodePage")
+);
+const ChangePasswordPage = React.lazy(() =>
+  import("./views/um/changePasswordPage")
+);
 
 class App extends Component {
   render() {
+    let homeRoute = (
+      <Route
+        path="/"
+        name="Home"
+        render={(props) => <TheLayout {...props} />}
+      />
+    );
+
+    // let loginRoute = (
+    //   <Route
+    //     exact
+    //     path="/login"
+    //     name="Login Page"
+    //     render={(props) => <Login {...props} />}
+    //   />
+    // );
+
+    // console.log(homeRoute);
+
+    const cekToken = window.sessionStorage.getItem("token");
+
+    if (!cekToken) {
+      homeRoute = (
+        <Route path="/" name="Home">
+          <Redirect to="/login" />
+        </Route>
+      );
+    } else {
+      history.go(1);
+    }
+
     return (
       <HashRouter>
         <React.Suspense fallback={loading}>
+          {/* {loginRoute} */}
+
           <Switch>
             <Route
               exact
@@ -50,17 +87,21 @@ class App extends Component {
               name="Page 500"
               render={(props) => <Page500 {...props} />}
             />
+            {/* {viewAdminPageRoute} */}
             <Route
               exact
-              path="/loginUser"
-              name="Login User"
-              render={(props) => <LoginUser {...props} />}
+              path="/insertVerifCode"
+              name="Insert Verif Code"
+              render={(props) => <InsertVerifCodePage {...props} />}
             />
             <Route
-              path="/"
-              name="Home"
-              render={(props) => <TheLayout {...props} />}
+              exact
+              path="/changePassword"
+              name="Change Password"
+              render={(props) => <ChangePasswordPage {...props} />}
             />
+
+            {homeRoute}
           </Switch>
         </React.Suspense>
       </HashRouter>
