@@ -32,7 +32,7 @@ class ChangePasswordPage extends Component {
     const email = query.get("email");
     if (this.state.user_password !== this.state.user_passwordRes) {
       await swal({ icon: "warning", text: "Password Not Match" });
-      window.location.href = `http://localhost:3000/#/changePassword?email=${email}`;
+      window.location.href = `http://localhost:3001/#/changePassword?email=${email}`;
     } else {
       const query = new URLSearchParams(this.props.location.search);
       const email = query.get("email");
@@ -45,16 +45,16 @@ class ChangePasswordPage extends Component {
         .then(async (res) => {
           if (res.data.success) {
             await swal({ icon: "success", text: res.data.success });
-            window.location.href = `http://localhost:3000/#/login`;
+            window.location.href = `http://localhost:3001/#/login`;
           } else {
             await swal({ icon: "error", text: res.data.failed });
-            window.location.href = `http://localhost:3000/#/login`;
+            window.location.href = `http://localhost:3001/#/login`;
           }
         })
         .catch(async (err) => {
           if (err) {
             await swal({ icon: "warning", text: err.message });
-            window.location.href = `http://localhost:3000/#/insertVerifCode?email=${email}`;
+            window.location.href = `http://localhost:3001/#/insertVerifCode?email=${email}`;
           }
         });
     }

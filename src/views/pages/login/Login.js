@@ -42,11 +42,11 @@ class Login extends Component {
             if (authToken().rid === 0) {
               console.log("admin");
               await swal({ text: "Welcome " + authToken().urn + "!" });
-              window.location.href = "http://localhost:3000/";
+              window.location.href = "http://localhost:3001/";
             } else {
               console.log("user");
               await swal({ text: "Welcome " + authToken().urn + "!" });
-              window.location.href = "http://localhost:3000/";
+              window.location.href = "http://localhost:3001/";
             }
           } else {
             // window.location.reload();

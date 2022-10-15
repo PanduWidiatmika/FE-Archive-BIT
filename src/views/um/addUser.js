@@ -44,10 +44,10 @@ class AddUser extends Component {
       })
       .then((res) => {
         swal("Good job!", "Add user success!", "success");
-        window.location.href = "http://localhost:3000/#/viewAdminpage";
+        window.location.href = "http://localhost:3001/#/viewAdminpage";
       })
       .catch((err) => {
-        window.location.href = "http://localhost:3000/#/loginUser";
+        window.location.href = "http://localhost:3001/#/loginUser";
         swal({ icon: "warning", text: err.response.statusText });
       });
   };
@@ -91,15 +91,15 @@ class AddUser extends Component {
           })
           .catch(async (err) => {
             await swal({ icon: "warning", text: err.response.statusText });
-            window.location.href = "http://localhost:3000/#/login";
+            window.location.href = "http://localhost:3001/#/login";
           });
       } else {
         await swal({ icon: "warning", text: "Unauthorized" });
-        window.location.href = "http://localhost:3000/"; //redirect ke user
+        window.location.href = "http://localhost:3001/"; //redirect ke user
       }
     } else {
       await swal({ icon: "warning", text: "No Token Provided!" });
-      window.location.href = "http://localhost:3000/#/login";
+      window.location.href = "http://localhost:3001/#/login";
     }
   }
 
@@ -115,7 +115,7 @@ class AddUser extends Component {
                     <CCol md="10">
                       <h2>Add User</h2>
                     </CCol>
-                    <CCol md="2">
+                    <CCol md="2" className="text-right">
                       <CLink to={{ pathname: "/viewAdminPage" }}>
                         <CButton color="danger">Kembali</CButton>
                       </CLink>
@@ -125,57 +125,76 @@ class AddUser extends Component {
 
                 <CCardBody>
                   <CForm method="post" onSubmit={(e) => this.APICheck(e)}>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>First Name</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="text"
-                        placeholder="John"
-                        required
-                        onChange={(e) => {
-                          this.setState({ first_name: e.target.value });
-                        }}
-                      ></CInput>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>Last Name</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="text"
-                        placeholder="Doe"
-                        required
-                        onChange={(e) => {
-                          this.setState({ last_name: e.target.value });
-                        }}
-                      ></CInput>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>Email</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="email"
-                        placeholder="johndoe1@email.com"
-                        required
-                        onChange={(e) => {
-                          this.setState({ user_email: e.target.value });
-                        }}
-                      ></CInput>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>Password</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="password"
-                        required
-                        onChange={(e) => {
-                          this.setState({ user_password: e.target.value });
-                        }}
-                      ></CInput>
-                    </CInputGroup>
+                    <CRow>
+                      <CInputGroup className="mb-3">
+                        <CCol md="2">
+                          <CInputGroupText>First Name</CInputGroupText>
+                        </CCol>
+                        <CCol>
+                          <CInput
+                            type="text"
+                            placeholder="John"
+                            required
+                            onChange={(e) => {
+                              this.setState({ first_name: e.target.value });
+                            }}
+                          ></CInput>
+                        </CCol>
+                      </CInputGroup>
+                    </CRow>
+
+                    <CRow>
+                      <CInputGroup className="mb-3">
+                        <CCol md="2">
+                          <CInputGroupText>Last Name</CInputGroupText>
+                        </CCol>
+                        <CCol>
+                          <CInput
+                            type="text"
+                            placeholder="Doe"
+                            required
+                            onChange={(e) => {
+                              this.setState({ last_name: e.target.value });
+                            }}
+                          ></CInput>
+                        </CCol>
+                      </CInputGroup>
+                    </CRow>
+
+                    <CRow>
+                      <CInputGroup className="mb-3">
+                        <CCol md="2">
+                          <CInputGroupText>Email</CInputGroupText>
+                        </CCol>
+                        <CCol>
+                          <CInput
+                            type="email"
+                            placeholder="johndoe@email.com"
+                            required
+                            onChange={(e) => {
+                              this.setState({ user_email: e.target.value });
+                            }}
+                          ></CInput>
+                        </CCol>
+                      </CInputGroup>
+                    </CRow>
+
+                    <CRow>
+                      <CInputGroup className="mb-3">
+                        <CCol md="2">
+                          <CInputGroupText>Password</CInputGroupText>
+                        </CCol>
+                        <CCol>
+                          <CInput
+                            type="password"
+                            required
+                            onChange={(e) => {
+                              this.setState({ user_password: e.target.value });
+                            }}
+                          ></CInput>
+                        </CCol>
+                      </CInputGroup>
+                    </CRow>
                     <CRow className="text-center">
                       <CCol>
                         <CButton color="primary" className="px-4" type="submit">

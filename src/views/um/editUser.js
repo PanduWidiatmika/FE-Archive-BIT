@@ -35,8 +35,8 @@ class EditUser extends Component {
       first_name: "",
       last_name: "",
       user_email: "",
-      id_user: "",
       nama_role: "",
+      user_emailBak: ""
     };
   }
 
@@ -49,7 +49,7 @@ class EditUser extends Component {
             first_name: res.data[0].first_name,
             last_name: res.data[0].last_name,
             user_email: res.data[0].user_email,
-            id_user: res.data[0].id_user,
+            user_emailBak: res.data[0].user_email,
             nama_role: res.data[0].nama_role,
             user: res.data[0],
           });
@@ -63,15 +63,15 @@ class EditUser extends Component {
           })
           .catch(async (err) => {
             await swal({ icon: "warning", text: err.response.statusText });
-            window.location.href = "http://localhost:3000/#/login";
+            window.location.href = "http://localhost:3001/#/login";
           });
       } else {
         await swal({ icon: "warning", text: "Unauthorized" });
-        window.location.href = "http://localhost:3000/"; //redirect ke user
+        window.location.href = "http://localhost:3001/"; //redirect ke user
       }
     } else {
       await swal({ icon: "warning", text: "No Token Provided!" });
-      window.location.href = "http://localhost:3000/#/login";
+      window.location.href = "http://localhost:3001/#/login";
     }
   };
 
@@ -88,11 +88,11 @@ class EditUser extends Component {
       })
       .then(async (res) => {
         await swal("Good job!", "Update user success!", "success");
-        window.location.href = "http://localhost:3000/#/viewAdminpage";
+        window.location.href = "http://localhost:3001/#/viewAdminpage";
       })
       .catch(async (err) => {
         await swal({ icon: "warning", text: err.response.statusText });
-        window.location.href = "http://localhost:3000/#/login";
+        window.location.href = "http://localhost:3001/#/login";
       });
   };
 
@@ -105,21 +105,27 @@ class EditUser extends Component {
   APICheck = (e) => {
     e.preventDefault();
 
-    // const email = this.state.user_email;
-    if (this.validateEmail(this.state.user_email)) {
-      const users = this.state.users.filter(
-        (f) =>
-          f.user_email.toLowerCase() === this.state.user_email.toLowerCase()
-      );
-
-      if (users.length > 0) {
-        swal("Warning", "Email already exists!", "warning");
-      } else {
-        this.updateData();
-      }
+    if (this.state.user_emailBak === this.state.user_email) {
+      this.updateData()
     } else {
-      swal({ icon: "warning", text: "Not an Email Format!" });
+      // const email = this.state.user_email;
+      if (this.validateEmail(this.state.user_email)) {
+        const users = this.state.users.filter(
+          (f) =>
+            f.user_email.toLowerCase() === this.state.user_email.toLowerCase()
+        );
+
+        if (users.length > 0) {
+          swal("Warning", "Email already exists!", "warning");
+        } else {
+          this.updateData();
+        }
+      } else {
+        swal({ icon: "warning", text: "Not an Email Format!" });
+      }
     }
+
+
   };
 
   componentDidMount() {
@@ -138,7 +144,7 @@ class EditUser extends Component {
                     <CCol md="10">
                       <h2>Edit User</h2>
                     </CCol>
-                    <CCol md="2">
+                    <CCol md="2" className="text-right">
                       <CLink to={{ pathname: "/viewAdminPage" }}>
                         <CButton color="danger">Kembali</CButton>
                       </CLink>
@@ -148,67 +154,74 @@ class EditUser extends Component {
 
                 <CCardBody>
                   <CForm method="post" onSubmit={(e) => this.APICheck(e)}>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>User Id</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="text"
-                        placeholder="John"
-                        value={this.state.id_user}
-                        disabled
-                      ></CInput>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>First Name</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="text"
-                        placeholder="John"
-                        value={this.state.first_name}
-                        onChange={(e) => {
-                          this.setState({ first_name: e.target.value });
-                        }}
-                      ></CInput>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>Last Name</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="text"
-                        placeholder="Doe"
-                        value={this.state.last_name}
-                        onChange={(e) => {
-                          this.setState({ last_name: e.target.value });
-                        }}
-                      ></CInput>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>Email</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="email"
-                        placeholder="johndoe1@email.com"
-                        value={this.state.user_email}
-                        onChange={(e) => {
-                          this.setState({ user_email: e.target.value });
-                        }}
-                      ></CInput>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>Role</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="text"
-                        placeholder="role"
-                        value={this.state.nama_role}
-                        disabled
-                      ></CInput>
-                    </CInputGroup>
+                    <CRow>
+                      <CInputGroup className="mb-3">
+                        <CCol md="2">
+                          <CInputGroupText>First Name</CInputGroupText>
+                        </CCol>
+                        <CCol>
+                          <CInput
+                            type="text"
+                            placeholder="John"
+                            value={this.state.first_name}
+                            onChange={(e) => {
+                              this.setState({ first_name: e.target.value });
+                            }}
+                            required
+                          ></CInput>
+                        </CCol>
+                      </CInputGroup>
+                    </CRow>
+
+                    <CRow>
+                      <CInputGroup className="mb-3">
+                        <CCol md="2">
+                          <CInputGroupText>Last Name</CInputGroupText>
+                        </CCol>
+                        <CCol>
+                          <CInput
+                            type="text"
+                            placeholder="John"
+                            value={this.state.last_name}
+                            onChange={(e) => {
+                              this.setState({ last_name: e.target.value });
+                            }}
+                            required
+                          ></CInput>
+                        </CCol>
+                      </CInputGroup>
+                    </CRow>
+                    <CRow>
+                      <CInputGroup className="mb-3">
+                        <CCol md="2">
+                          <CInputGroupText>Email</CInputGroupText>
+                        </CCol>
+                        <CCol>
+                          <CInput
+                            type="email"
+                            placeholder="johndoe@email.com"
+                            value={this.state.user_email}
+                            onChange={(e) => {
+                              this.setState({ user_email: e.target.value });
+                            }}
+                            required
+                          ></CInput>
+                        </CCol>
+                      </CInputGroup>
+                    </CRow>
+                    <CRow>
+                      <CInputGroup className="mb-3">
+                        <CCol md="2">
+                          <CInputGroupText>Email</CInputGroupText>
+                        </CCol>
+                        <CCol>
+                          <CInput
+                            value={this.state.user.nama_role}
+                            disabled
+                          ></CInput>
+                        </CCol>
+                      </CInputGroup>
+                    </CRow>
                     <CRow className="text-center">
                       <CCol>
                         <CButton color="primary" className="px-4" type="submit">

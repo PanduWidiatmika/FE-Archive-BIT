@@ -24,7 +24,6 @@ class ViewUser extends Component {
     this.state = {
       user: [
         {
-          id_user: "",
           first_name: "",
           last_name: "",
           user_email: "",
@@ -47,15 +46,15 @@ class ViewUser extends Component {
           })
           .catch(async (err) => {
             await swal({ icon: "warning", text: err.response.statusText });
-            window.location.href = "http://localhost:3000/#/login";
+            window.location.href = "http://localhost:3001/#/login";
           });
       } else {
         await swal({ icon: "warning", text: "Unauthorized" });
-        window.location.href = "http://localhost:3000/"; //redirect ke user
+        window.location.href = "http://localhost:3001/"; //redirect ke user
       }
     } else {
       await swal({ icon: "warning", text: "No Token Provided!" });
-      window.location.href = "http://localhost:3000/#/login";
+      window.location.href = "http://localhost:3001/#/login";
     }
   };
 
@@ -75,7 +74,7 @@ class ViewUser extends Component {
                     <CCol md="10">
                       <h2>View User</h2>
                     </CCol>
-                    <CCol md="2">
+                    <CCol md="2" className="text-right">
                       <CLink to={{ pathname: "/viewAdminPage" }}>
                         <CButton color="danger">Kembali</CButton>
                       </CLink>
@@ -85,61 +84,61 @@ class ViewUser extends Component {
 
                 <CCardBody>
                   <CForm method="post">
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>User Id</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="text"
-                        placeholder="John"
-                        value={this.state.user[0].id_user}
-                        disabled
-                      ></CInput>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>First Name</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="text"
-                        placeholder="John"
-                        value={this.state.user[0].first_name}
-                        disabled
-                      ></CInput>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>Last Name</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="text"
-                        placeholder="Doe"
-                        value={this.state.user[0].last_name}
-                        disabled
-                      ></CInput>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>Email</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="email"
-                        placeholder="johndoe1@email.com"
-                        value={this.state.user[0].user_email}
-                        disabled
-                      ></CInput>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>Role</CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="text"
-                        placeholder="role"
-                        value={this.state.user[0].nama_role}
-                        disabled
-                      ></CInput>
-                    </CInputGroup>
+                    <CRow>
+                      <CInputGroup className="mb-3">
+                        <CCol md="2">
+                          <CInputGroupText>First Name</CInputGroupText>
+                        </CCol>
+                        <CCol>
+                          <CInput
+                            value={this.state.user[0].first_name}
+                            disabled
+                          ></CInput>
+                        </CCol>
+                      </CInputGroup>
+                    </CRow>
+
+                    <CRow>
+                      <CInputGroup className="mb-3">
+                        <CCol md="2">
+                          <CInputGroupText>Last Name</CInputGroupText>
+                        </CCol>
+                        <CCol>
+                          <CInput
+                            value={this.state.user[0].last_name}
+                            disabled
+                          ></CInput>
+                        </CCol>
+                      </CInputGroup>
+                    </CRow>
+
+                    <CRow>
+                      <CInputGroup className="mb-3">
+                        <CCol md="2">
+                          <CInputGroupText>Email</CInputGroupText>
+                        </CCol>
+                        <CCol>
+                          <CInput
+                            value={this.state.user[0].user_email}
+                            disabled
+                          ></CInput>
+                        </CCol>
+                      </CInputGroup>
+                    </CRow>
+
+                    <CRow>
+                      <CInputGroup className="mb-3">
+                        <CCol md="2">
+                          <CInputGroupText>Email</CInputGroupText>
+                        </CCol>
+                        <CCol>
+                          <CInput
+                            value={this.state.user[0].nama_role}
+                            disabled
+                          ></CInput>
+                        </CCol>
+                      </CInputGroup>
+                    </CRow>
                   </CForm>
                 </CCardBody>
               </CCard>

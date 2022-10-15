@@ -38,18 +38,17 @@ class InsertVerifCodePage extends Component {
         params_user_email: email,
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data.message) {
-          window.location.href = `http://localhost:3000/#/insertVerifCode?email=${email}`;
+          window.location.href = `http://localhost:3001/#/insertVerifCode?email=${email}`;
           swal({ icon: "warning", text: res.data.message });
         } else {
           // window.sessionStorage.setItem("code", res.data[0].verif_code);
-          window.location.href = `http://localhost:3000/#/changePassword?email=${email}`;
+          window.location.href = `http://localhost:3001/#/changePassword?email=${email}`;
         }
       })
       .catch((err) => {
         if (err) {
-          window.location.href = `http://localhost:3000/#/insertVerifCode?email=${email}`;
+          window.location.href = `http://localhost:3001/#/insertVerifCode?email=${email}`;
           swal({ icon: "warning", text: err.message });
         }
       });

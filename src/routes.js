@@ -1,182 +1,177 @@
 import React from "react";
+import { authToken } from "src/views/plugins/api";
 
-const Toaster = React.lazy(() =>
-  import("./views/notifications/toaster/Toaster")
-);
-const Tables = React.lazy(() => import("./views/base/tables/Tables"));
-
-const Breadcrumbs = React.lazy(() =>
-  import("./views/base/breadcrumbs/Breadcrumbs")
-);
-const Cards = React.lazy(() => import("./views/base/cards/Cards"));
-const Carousels = React.lazy(() => import("./views/base/carousels/Carousels"));
-const Collapses = React.lazy(() => import("./views/base/collapses/Collapses"));
-const BasicForms = React.lazy(() => import("./views/base/forms/BasicForms"));
-
-const Jumbotrons = React.lazy(() =>
-  import("./views/base/jumbotrons/Jumbotrons")
-);
-const ListGroups = React.lazy(() =>
-  import("./views/base/list-groups/ListGroups")
-);
-const Navbars = React.lazy(() => import("./views/base/navbars/Navbars"));
-const Navs = React.lazy(() => import("./views/base/navs/Navs"));
-const Paginations = React.lazy(() =>
-  import("./views/base/paginations/Pagnations")
-);
-const Popovers = React.lazy(() => import("./views/base/popovers/Popovers"));
-const ProgressBar = React.lazy(() =>
-  import("./views/base/progress-bar/ProgressBar")
-);
-const Switches = React.lazy(() => import("./views/base/switches/Switches"));
-
-const Tabs = React.lazy(() => import("./views/base/tabs/Tabs"));
-const Tooltips = React.lazy(() => import("./views/base/tooltips/Tooltips"));
-const BrandButtons = React.lazy(() =>
-  import("./views/buttons/brand-buttons/BrandButtons")
-);
-const ButtonDropdowns = React.lazy(() =>
-  import("./views/buttons/button-dropdowns/ButtonDropdowns")
-);
-const ButtonGroups = React.lazy(() =>
-  import("./views/buttons/button-groups/ButtonGroups")
-);
-const Buttons = React.lazy(() => import("./views/buttons/buttons/Buttons"));
-const Charts = React.lazy(() => import("./views/charts/Charts"));
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
-const CoreUIIcons = React.lazy(() =>
-  import("./views/icons/coreui-icons/CoreUIIcons")
-);
-const Flags = React.lazy(() => import("./views/icons/flags/Flags"));
-const Brands = React.lazy(() => import("./views/icons/brands/Brands"));
-const Alerts = React.lazy(() => import("./views/notifications/alerts/Alerts"));
-const Badges = React.lazy(() => import("./views/notifications/badges/Badges"));
-const Modals = React.lazy(() => import("./views/notifications/modals/Modals"));
-const Colors = React.lazy(() => import("./views/theme/colors/Colors"));
-const Typography = React.lazy(() =>
-  import("./views/theme/typography/Typography")
-);
-const Widgets = React.lazy(() => import("./views/widgets/Widgets"));
-const Users = React.lazy(() => import("./views/users/Users"));
-const User = React.lazy(() => import("./views/users/User"));
+
+//User Management
 const ViewAdminPage = React.lazy(() => import("./views/um/viewAdminPage"));
 const AddUser = React.lazy(() => import("./views/um/addUser"));
 const ViewUser = React.lazy(() => import("./views/um/viewUser"));
 const EditUser = React.lazy(() => import("./views/um/editUser"));
 
+//File Management
+const FM = React.lazy(() => import("./views/fm"));
+const FMYear = React.lazy(() => import("./views/fm/year"));
+const FMMonth = React.lazy(() => import("./views/fm/month"));
+const FMFile = React.lazy(() => import("./views/fm/file"));
+const FMView = React.lazy(() => import("./views/fm/view"));
+const FMCreate = React.lazy(() => import("./views/fm/create"));
+const FMUpdate = React.lazy(() => import("./views/fm/update"));
+const FMCreateArchiveType = React.lazy(() =>
+  import("./views/fm/createArchiveType")
+);
+const FMUpdateArchiveType = React.lazy(() =>
+  import("./views/fm/updateArchiveType")
+);
+
+//Ticket Managemnet Route
+const Ticket = React.lazy(() => import('./views/ticket/ticket'));
+const ticketView = React.lazy(() => import('./views/ticket/ticket.view'));
+const moduleInsert = React.lazy(() => import('./views/ticket/module/module.insert'));
+
+//LIVE CHAT SICKET.IO ROUTE
+const LiveChat = React.lazy(() => import('./views/chatting/components/LiveChat'));
+const registerRoom = React.lazy(() => import('./views/chatting/components/Register_room'));
+
+//Event Management
+const Calendar = React.lazy(() => import("./views/calendar/index"));
+const CalendarTable = React.lazy(() =>
+  import("./views/calendar/CalendarTable")
+);
+const Category = React.lazy(() => import("./views/calendar/Category"));
+
 const cekToken = window.sessionStorage.getItem("token");
 
 const cekRoutes = () => {
   if (cekToken) {
-    return [
-      { path: "/", exact: true, name: "Home" },
-      { path: "/dashboard", name: "Dashboard", component: Dashboard },
-      { path: "/theme", name: "Theme", component: Colors, exact: true },
-      { path: "/theme/colors", name: "Colors", component: Colors },
-      { path: "/theme/typography", name: "Typography", component: Typography },
-      { path: "/base", name: "Base", component: Cards, exact: true },
-      {
-        path: "/base/breadcrumbs",
-        name: "Breadcrumbs",
-        component: Breadcrumbs,
-      },
-      { path: "/base/cards", name: "Cards", component: Cards },
-      { path: "/base/carousels", name: "Carousel", component: Carousels },
-      { path: "/base/collapses", name: "Collapse", component: Collapses },
-      { path: "/base/forms", name: "Forms", component: BasicForms },
-      { path: "/base/jumbotrons", name: "Jumbotrons", component: Jumbotrons },
-      { path: "/base/list-groups", name: "List Groups", component: ListGroups },
-      { path: "/base/navbars", name: "Navbars", component: Navbars },
-      { path: "/base/navs", name: "Navs", component: Navs },
-      {
-        path: "/base/paginations",
-        name: "Paginations",
-        component: Paginations,
-      },
-      { path: "/base/popovers", name: "Popovers", component: Popovers },
-      {
-        path: "/base/progress-bar",
-        name: "Progress Bar",
-        component: ProgressBar,
-      },
-      { path: "/base/switches", name: "Switches", component: Switches },
-      { path: "/base/tables", name: "Tables", component: Tables },
-      { path: "/base/tabs", name: "Tabs", component: Tabs },
-      { path: "/base/tooltips", name: "Tooltips", component: Tooltips },
-      { path: "/buttons", name: "Buttons", component: Buttons, exact: true },
-      { path: "/buttons/buttons", name: "Buttons", component: Buttons },
-      {
-        path: "/buttons/button-dropdowns",
-        name: "Dropdowns",
-        component: ButtonDropdowns,
-      },
-      {
-        path: "/buttons/button-groups",
-        name: "Button Groups",
-        component: ButtonGroups,
-      },
-      {
-        path: "/buttons/brand-buttons",
-        name: "Brand Buttons",
-        component: BrandButtons,
-      },
-      { path: "/charts", name: "Charts", component: Charts },
-      { path: "/icons", exact: true, name: "Icons", component: CoreUIIcons },
-      {
-        path: "/icons/coreui-icons",
-        name: "CoreUI Icons",
-        component: CoreUIIcons,
-      },
-      { path: "/icons/flags", name: "Flags", component: Flags },
-      { path: "/icons/brands", name: "Brands", component: Brands },
-      {
-        path: "/notifications",
-        name: "Notifications",
-        component: Alerts,
-        exact: true,
-      },
-      { path: "/notifications/alerts", name: "Alerts", component: Alerts },
-      { path: "/notifications/badges", name: "Badges", component: Badges },
-      { path: "/notifications/modals", name: "Modals", component: Modals },
-      { path: "/notifications/toaster", name: "Toaster", component: Toaster },
-      { path: "/widgets", name: "Widgets", component: Widgets },
-      { path: "/users", exact: true, name: "Users", component: Users },
-      {
-        path: "/users/:id",
-        exact: true,
-        name: "User Details",
-        component: User,
-      },
-      {
-        path: "/viewAdminPage",
-        exact: true,
-        name: "Admin Page",
-        component: ViewAdminPage,
-      },
-      {
-        path: "/addUser",
-        exact: true,
-        name: "Add User",
-        component: AddUser,
-      },
-      {
-        path: "/viewUser/:id",
-        exact: true,
-        name: "View User",
-        component: ViewUser,
-      },
-      {
-        path: "/editUser/:id",
-        exact: true,
-        name: "Edit User",
-        component: EditUser,
-      },
-    ];
+    if (authToken().rid === 0) {
+      return [
+        { path: "/", exact: true, name: "Home" },
+
+        { path: "/dashboard", name: "Dashboard", component: Dashboard },
+
+        {
+          path: "/viewAdminPage",
+          exact: true,
+          name: "Admin Page",
+          component: ViewAdminPage,
+        },
+        { path: "/addUser", exact: true, name: "Add User", component: AddUser },
+        {
+          path: "/viewUser/:id",
+          exact: true,
+          name: "View User",
+          component: ViewUser,
+        },
+        {
+          path: "/editUser/:id",
+          exact: true,
+          name: "Edit User",
+          component: EditUser,
+        },
+        { path: "/fm", name: "Archives Management - Folders", component: FM },
+        {
+          path: "/year/:archive_type",
+          name: "Archives Management - Year Folders",
+          component: FMYear,
+        },
+        {
+          path: "/month/:archive_type/:archive_year",
+          name: "Archives Management - Month Folders",
+          component: FMMonth,
+        },
+        {
+          path: "/file/:archive_type/:archive_year/:archive_month",
+          name: "Archives Management - Archives",
+          component: FMFile,
+        },
+        {
+          path: "/view/:archive_type/:archive_year/:archive_month/:file_id",
+          name: "Archives Management - View Archive",
+          component: FMView,
+        },
+        {
+          path: "/create/:archive_type",
+          name: "Archives Management - Create Archive",
+          component: FMCreate,
+        },
+        {
+          path: "/update/:archive_type/:archive_year/:archive_month/:file_id",
+          name: "Archives Management - Update Archive",
+          component: FMUpdate,
+        },
+        {
+          path: "/create-archive-type",
+          name: "Archives Management - Create Folder",
+          component: FMCreateArchiveType,
+        },
+        {
+          path: "/update-archive-type/:archive_id",
+          name: "Archives Management - Update Folder",
+          component: FMUpdateArchiveType,
+        },
+
+        { path: "/calendar", name: "Calendar", component: Calendar },
+        {
+          path: "/calendartable",
+          name: "Uncompleted Event",
+          component: CalendarTable,
+        },
+        { path: "/category", name: "Category Table", component: Category },
+        { path: '/ticket', exact: true, name: 'Ticket Management', component: Ticket },
+        { path: '/tview/:id', exact: true, name: 'Ticket View', component: ticketView },
+        { path: '/minsert/:id', exact: true, name: 'Module Insert', component: moduleInsert },
+        { path: '/livechat', exact: true, name: 'Live Chat', component: LiveChat },
+        { path: '/registerPageRoom', exact: true, name: 'Register Room', component: registerRoom },
+      ];
+    }
+    else {
+      return [
+        { path: "/", exact: true, name: "Home" },
+
+        { path: "/dashboard", name: "Dashboard", component: Dashboard },
+
+        { path: "/fm", name: "Archives Management - Folders", component: FM },
+        {
+          path: "/year/:archive_type",
+          name: "Archives Management - Year Folders",
+          component: FMYear,
+        },
+        {
+          path: "/month/:archive_type/:archive_year",
+          name: "Archives Management - Month Folders",
+          component: FMMonth,
+        },
+        {
+          path: "/file/:archive_type/:archive_year/:archive_month",
+          name: "Archives Management - Archives",
+          component: FMFile,
+        },
+        {
+          path: "/view/:archive_type/:archive_year/:archive_month/:file_id",
+          name: "Archives Management - View Archive",
+          component: FMView,
+        },
+
+        { path: "/calendar", name: "Calendar", component: Calendar },
+        {
+          path: "/calendartable",
+          name: "Uncompleted Event",
+          component: CalendarTable,
+        },
+        { path: "/category", name: "Category Table", component: Category },
+
+        { path: '/ticket', exact: true, name: 'Ticket Management', component: Ticket },
+        { path: '/tview/:id', exact: true, name: 'Ticket View', component: ticketView },
+
+        { path: '/livechat', exact: true, name: 'Live Chat', component: LiveChat },
+      ];
+    }
   } else {
-    window.location.href = "http://localhost:3000/#/login";
+    window.location.href = "http://localhost:3001/#/login";
   }
 };
 
-const routes = cekRoutes();
+const   routes = cekRoutes();
 
 export default routes;

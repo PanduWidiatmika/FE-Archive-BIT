@@ -12,6 +12,8 @@ import {
   CLink,
   CCollapse,
   CTooltip,
+  CInputGroup,
+  CInputGroupAppend
 } from "@coreui/react";
 import { api, authToken } from "../plugins/api";
 import CIcon from "@coreui/icons-react";
@@ -34,6 +36,7 @@ class ViewAdminPage extends Component {
     this.state = {
       userdata: [],
       details: [],
+      cekToken: window.sessionStorage.getItem("token")
     };
   }
 
@@ -44,22 +47,21 @@ class ViewAdminPage extends Component {
         api
           .post("/get", { token: cekToken })
           .then((res) => {
-            // console.log(res);
             this.setState({
               userdata: res.data,
             });
           })
           .catch(async (err) => {
             await swal({ icon: "warning", text: err.response.statusText });
-            window.location.href = "http://localhost:3000/#/login";
+            window.location.href = "http://localhost:3001/#/login";
           });
       } else {
         await swal({ icon: "warning", text: "Unauthorized" });
-        window.location.href = "http://localhost:3000/"; //redirect ke user
+        window.location.href = "http://localhost:3001/"; //redirect ke user
       }
     } else {
       await swal({ icon: "warning", text: "No Token Provided!" });
-      window.location.href = "http://localhost:3000/#/login";
+      window.location.href = "http://localhost:3001/#/login";
     }
   };
 
@@ -123,10 +125,23 @@ class ViewAdminPage extends Component {
         }
       })
       .catch((err) => {
-        window.location.href = "http://localhost:3000/#/login";
+        window.location.href = "http://localhost:3001/#/login";
         swal({ icon: "warning", text: err.response.statusText });
       });
   };
+
+  searchUser(e) {
+    api.post('/searchUsers', {
+      first_name: e.target.value,
+      last_name: e.target.value,
+      token: this.state.cekToken
+    })
+      .then(res => {
+        this.setState({
+          userdata: res.data.search_results
+        })
+      })
+  }
 
   componentDidMount = function () {
     this.getData();
@@ -138,10 +153,21 @@ class ViewAdminPage extends Component {
         <CCard>
           <CCardHeader>
             <CRow>
-              <CCol md="10">
+              <CCol md="6">
                 <h2>Archive Users</h2>
               </CCol>
-              <CCol md="2">
+              <CCol md="4">
+                <CInputGroup>
+                  <CInput type="text" id="search" name="search" placeholder="Type to search by name ..." onChange={(e) => this.searchUser(e)} />
+                  <CInputGroupAppend>
+                    <CTooltip content={`Search`} placement={`top`}>
+                      <CButton className="btn-sm" type="submit" style={{ backgroundColor: "blue" }}><CIcon name="cil-magnifying-glass"
+                        style={{ color: "white" }}></CIcon></CButton>
+                    </CTooltip>
+                  </CInputGroupAppend>
+                </CInputGroup>
+              </CCol>
+              <CCol md="2" className="text-right">
                 <CLink to={{ pathname: "/addUser" }}>
                   <CButton color="primary">Add User</CButton>
                 </CLink>
