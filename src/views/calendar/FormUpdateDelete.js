@@ -2,7 +2,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { CButton, CCol, CForm, CFormGroup, CInput, CInputRadio, CLabel, CModal, CModalBody, CModalFooter, CModalHeader, CRow, CSelect } from '@coreui/react';
 import React, { Component } from "react";
-import { api } from "src/views/plugins/api";
+import { api, authToken } from "src/views/plugins/api";
 import swal from "sweetalert";
 
 class FormUpdateDelete extends Component {
@@ -172,7 +172,8 @@ class FormUpdateDelete extends Component {
                         <CModalFooter style={{ padding: "8px" }}>
                         </CModalFooter>
                         <CModalFooter>
-                            <CButton type="submit" color={this.props.data.temp ? "danger" : "success"}>{this.props.data.temp ? "Delete Event" : "Update Event"}</CButton>{' '}
+                            {authToken().rid === 0 ? <><CButton type="submit" color={this.props.data.temp ? "danger" : "success"}>{this.props.data.temp ? "Delete Event" : "Update Event"}</CButton>{' '}</> : <></>}
+
                             <CButton color="secondary" onClick={this.props.toggleMore}>Cancel</CButton>
                         </CModalFooter>
                     </CForm>
